@@ -1,0 +1,18 @@
+server:
+  port:8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/securitydemo
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+env:
+  jwt-secret: a1c6ad0c45508a0cbd470441aee1817cc5a4c0695f9e202b2f6a58a1674b80c4361e1f2d1b9ae0f901ad0f2c4c4377247219364af354d38d657724300392d9099ae30e293aa18639d207c07cafa3c325eb33ccead7a848f63df9f88c7996aa231083bb3e2fb7da26b102747c647ca7948548120008d68058403ca3b3ca9b0c1d9d53c0afea1adc21acd4d674247c2a0ff51eee4196e827669bc9d0a77f05936303ce3220ca17ea76d33038b0d38c88dca6dae50d29d21b8d3accce5dbf63c639e1527aed4418dc637692cf56aafdb08f038ba27f8e41f0a90ec38a014fbad0c782b7ee62a17d3ba082a3370aee004f800528548c5c195a081de60b34adf2e63b
+
