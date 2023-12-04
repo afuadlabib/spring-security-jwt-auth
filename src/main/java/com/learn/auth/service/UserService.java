@@ -1,5 +1,6 @@
 package com.learn.auth.service;
 
+import com.learn.auth.dto.AuthDto;
 import com.learn.auth.dto.UserDto;
 import com.learn.auth.entity.User;
 import com.learn.auth.repository.UserRepository;
@@ -20,16 +21,22 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
-    public User register(UserDto userDto){
-        return userRepository.save(User.builder().username(userDto.getUsername()).password(passwordEncoder.encode(userDto.getPassword())).build());
+    public AuthDto register(UserDto userDto){
+        var user = userRepository.save(User.builder().username(userDto.getUsername()).password(passwordEncoder.encode(userDto.getPassword())).build());
+        return AuthDto.builder()
+                .token(jwtService.generateToken(user))
+                .data(user)
+                .build();
     }
 
-    public String login(UserDto userDto) throws UsernameNotFoundException{
+    public AuthDto login(UserDto userDto) throws UsernameNotFoundException{
         User user =  userRepository.findByUsername(userDto.getUsername()).orElseThrow(()-> new UsernameNotFoundException("Username not found"));
         if(passwordEncoder.matches( userDto.getPassword(), user.getPassword())){
-            return jwtService.generateToken(user);
+            return AuthDto.builder()
+                    .token(jwtService.generateToken(user))
+                    .data(user)
+                    .build();
         } else {
-            System.out.println("test");
             throw new UsernameNotFoundException("Invalid password or username");
         }
     }

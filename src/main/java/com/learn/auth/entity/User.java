@@ -1,5 +1,6 @@
 package com.learn.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,6 +25,7 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long id;
     private String username;
+    @JsonIgnore
     private String password;
 
     @Override
